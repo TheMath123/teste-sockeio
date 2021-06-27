@@ -1,0 +1,79 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  padding: 1rem 0;
+
+  background: #e3e3e3;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  width: 31.25rem;
+  height: 90vh;
+}
+
+#chat {
+  flex: 1;
+
+  resize: none;
+
+  color: #030303;
+  font-size: 1.25rem;
+  font-weight: 500;
+
+  border-radius: .25rem;
+  background: #FFF;
+  border: 1px solid #030303;
+}
+
+#sendMessage {
+  display: flex;
+  gap: .5rem;
+
+  height: 2rem;
+}
+
+input {
+  width: 100%;
+
+  font-size: 1rem;
+  color: #030303;
+  padding: .2rem .5rem;
+
+  border: 1px solid #030303;
+  border-radius: .25rem;
+
+  outline-color: #005dc7;
+}
+
+button {
+  width: 5rem;
+  
+  color: #FFF;
+  font-size: 1rem;
+  font-weight: 500;
+  
+  border: 1px solid #030303;
+  border-radius: .25rem;
+  background: #0074f8;
+
+  transition: background .2s;
+}
+
+button:hover {
+  background: #0055b6;
+}
+
+button:active {
+  background: #00336d;
+}

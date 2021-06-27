@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.1.2/dist/socket.io.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input id="username" type="text" placeholder="Seu nome">
+    <div id="chat"></div>
+    <form id="sendMessage">
+      <input type="text" id="message">
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+
+  <script type="text/javascript">
+    //Criando conexão
+    let socket;
+
+    if(!socket) {
+      socket = new io('http://localhost:3333');
+    }
+
+    //Renderiza nova mensagem em tela
+    function renderMessage(msg){
+      let temp = document.getElementById('chat').innerHTML;
+      document.getElementById('chat').innerHTML = temp + `<div><strong>${msg.name}: </strong>${msg.message}</div>`;
+    }
+
+    //Evento de enviar mensagem
+    document.addEventListener('submit', event => {
+      event.preventDefault();
+      
+      sendMessage();
+    });
+
+    //Envia uma mensagem
+    function sendMessage(){
+      const name = document.getElementById('username').value;
+      const message = document.getElementById('message').value;
+      document.getElementById('message').value = '';
+
+      if(name.trim() === ''){
+        document.getElementById('username').style.border = '1px solid red';
+        alert('Nome não pode ser vazio')
+      }
+
+      if(message.trim() !== ''){
+        document.getElementById('username').style.border = '1px solid black';
+        socket.emit('sendMessage', {
+          name,
+          message,
+        });
+      }
+    }
+
+    //Escutando novas mensagens
+    socket.on('receivedMessage', (msg) => {
+      console.log(`${msg.name} => enviou uma mensagem => ${msg.message}`)
+      renderMessage(msg)
+    });
+
+  </script>
+</body>
+</html>
